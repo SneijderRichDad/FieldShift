@@ -1,0 +1,13 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {validateStoryInput,validateStoryFile,isSupportedStoryVideo} from '../lib/story-validation.js';
+const good={title:'Our harvest journey',starting_point:'We began with maize during a wet season.',progress:'We experimented with a new crop rotation.',results:'We observed a different crop condition.',contact_type:'none',contact_value:'',consent:true};
+test('valid consented story accepted',()=>assert.equal(validateStoryInput(good),null));
+test('consent required',()=>assert.match(validateStoryInput({...good,consent:false}),/Consent/));
+test('short unsubstantiated stories rejected',()=>assert.match(validateStoryInput({...good,results:'Good'}),/Describe observed/));
+test('contact cannot be exposed without a value',()=>assert.match(validateStoryInput({...good,contact_type:'phone'}),/contact detail/));
+test('bad email refused',()=>assert.match(validateStoryInput({...good,contact_type:'email',contact_value:'not-an-email'}),/valid email/));
+test('image accepted',()=>assert.equal(validateStoryFile({type:'image/jpeg',size:25000}),null));
+test('oversized videos rejected',()=>assert.match(validateStoryFile({type:'video/mp4',size:26*1024*1024}),/25 MB/));
+test('unsupported executable denied',()=>assert.match(validateStoryFile({type:'application/javascript',size:100}),/choose/));
+test('webm classified as video',()=>assert.equal(isSupportedStoryVideo('video/webm'),true));

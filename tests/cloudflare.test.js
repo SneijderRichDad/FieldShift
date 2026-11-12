@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {onRequest} from '../functions/api/[[endpoint]].js';
+const req=(endpoint,method='GET',body)=>({request:new Request('https://fieldshift.pages.dev/api/'+endpoint,{method,headers:method==='POST'?{'content-type':'application/json'}:{},body:body?JSON.stringify(body):undefined}),env:{},params:{endpoint}});
+test('cloudflare unknown route fails closed',async()=>{const r=await onRequest(req('unknown'));assert.equal(r.status,404)});
+test('advisor requires server configuration and never fabricates NVIDIA AI result',async()=>{const r=await onRequest(req('advisor','POST',{question:'What can I grow after maize?'}));assert.equal(r.status,503);assert.match((await r.json()).error,/configured/)});
+test('AI does not permit unsupported method',async()=>{const r=await onRequest(req('advisor'));assert.equal(r.status,405)});
+test('crop scan cannot bypass authentication or missing secrets',async()=>{const r=await onRequest(req('crop-scan','POST',{image:'data:image/png;base64,AA=='}));assert.equal(r.status,503)});
+test('NASA rejects out-of-region coordinates before making any network call',async()=>{const r=await onRequest({request:new Request('https://example.org/api/nasa-power?latitude=0&longitude=0&start=20260101&end=20260110&parameters=T2M,PRECTOTCORR'),env:{},params:{endpoint:'nasa-power'}});assert.equal(r.status,400)});
+test('news API requires GET',async()=>{const r=await onRequest(req('market-news','POST',{x:1}));assert.equal(r.status,405)});

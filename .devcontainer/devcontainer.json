@@ -1,0 +1,1 @@
+{"name":"IhingaLink AI","image":"mcr.microsoft.com/devcontainers/javascript-node:22","forwardPorts":[5173],"postCreateCommand":"npm install","postAttachCommand":"npm run dev -- --host 0.0.0.0","portsAttributes":{"5173":{"label":"IhingaLink Preview","onAutoForward":"openPreview"}}}
