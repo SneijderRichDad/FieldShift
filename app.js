@@ -14,7 +14,9 @@ try {
   }
 } catch {}
 
-document.documentElement.dataset.theme = currentTheme;
+if (document.documentElement?.dataset) {
+  document.documentElement.dataset.theme = currentTheme;
+}
 
 function setFieldShiftTheme(mode) {
   if (!themeModes.includes(mode)) return;
@@ -50,7 +52,7 @@ const seedPosts=[{id:'p1',name:'Aline M.',district:'Musanze',sector:'Muhoza',top
 const seedMarket=[{crop:'Maize',emoji:'🌽',who:'Demo cooperative',district:'Musanze',qty:'250 kg',type:'Seller',price:'Price on request'},{crop:'Beans',emoji:'🫘',who:'Example buyer',district:'Huye',qty:'100 kg',type:'Buyer',price:'Price on request'},{crop:'Potatoes',emoji:'🥔',who:'Demo harvest listing',district:'Rubavu',qty:'400 kg',type:'Seller',price:'Price on request'}];
 let state={country:storage.get('country','Rwanda'),marketScope:'all',marketType:'all',marketSearch:'',marketInquiries:[],page:'dashboard',profile:storage.get('profile',{name:'Guest Farmer',district:'Musanze',sector:'Muhoza',crops:'Maize, Beans',priority:'Soil health'}),posts:storage.get('posts',seedPosts),market:storage.get('market',seedMarket),likes:storage.get('likes',[]),filter:'near',climate:null,climateStatus:'not-requested',chat:[{role:'bot',text:'Murakaza neza! Welcome to AgriNova. Ask about crop rotations, rainfall patterns, soil care, or community farming. My current answers are rule-based educational guidance, not expert-verified advice.'}],auth:null,authReady:false,authError:'',firestore:null,fb:null,lang:storage.get('lang','en'),searchTerm:'',supabase:null,supaClient:null,voiceState:'',scannerFile:null,stories:[],storyAdmin:false,storyFilter:'published',storyLoading:false,storyError:'',storyUploadBusy:false,storyRecordedFile:null,storyRecorder:null,storyRecordingStream:null,farms:[],seasons:[],savedRotations:[],marketCloud:[],farmBusy:false};
 const primaryNavIds=new Set(['dashboard','farms','community','rotation','climate','explorer','advisor','market']);
-const navItems=[['dashboard','⌂','Dashboard'],['farms','▦','My Farms'],['rotation','↻','Nova Planner'],['advisor','✧','Nova AI'],['climate','☁','Nova Climate'],['community','♧','Nova Connect'],['market','▤','Nova Market'],['explorer','⌖','Farm Map'],['stories','★','Success Stories'],['research','◎','NASA Research'],['simulation','▥','Climate Simulator'],['greenhouse','⌂','Greenhouse Planner'],['scanner','◉','Crop Photo Review'],['profile','♙','My Profile'],['account','♙','Private Account'],['notifications','♧','Notifications'],['admin','⚙','Moderation'],['help','?','Help & Security'],['about','♡','About AgriNova']];
+const navItems=[['dashboard','⌂','Dashboard'],['farms','▦','My Farms'],['rotation','↻','Nova Planner'],['advisor','✧','Nova AI'],['climate','☁','Nova Climate'],['community','♧','Nova Connect'],['messages','✉','Nova Chat'],['market','▤','Nova Market'],['explorer','⌖','Farm Map'],['stories','★','Success Stories'],['research','◎','NASA Research'],['simulation','▥','Climate Simulator'],['greenhouse','⌂','Greenhouse Planner'],['scanner','◉','Crop Photo Review'],['profile','♙','My Profile'],['account','♙','Private Account'],['notifications','♧','Notifications'],['admin','⚙','Moderation'],['help','?','Help & Security'],['about','♡','About AgriNova']];
 const titleFor=page=>({farms:'Manage your fields & seasons',dashboard:'Your farming world, connected',community:'Grow knowledge together',rotation:'Plan a healthier next season',climate:'Understand your climate',explorer:'Explore farming locations',research:'Evidence from NASA research',market:'Markets closer to your farm',advisor:'Your agriculture companion',profile:'Your farming profile',simulation:'What if the weather changes?',greenhouse:'Plan your greenhouse seasons',scanner:'Review a crop photo',stories:'Real farmers. Shared progress.',admin:'Review farmer submissions',help:'Help, privacy and security',about:'Built for Rwanda’s farmers',account:'My private farming account',notifications:'My notifications'})[page];
 function stats(){return `<div class="grid four" style="margin-top:19px"><div class="card metric"><div class="top">🌿 Your current crops <span>↗</span></div><div class="num">${escapeHTML(state.profile.crops.split(',').length)}</div><div class="note">Registered crop types</div></div><div class="card metric"><div class="top">♧ Community posts</div><div class="num">${state.posts.length}</div><div class="note">${(state.firestore||state.supabase)&&state.auth?'Cloud discussions connected':'Browser demonstration'}</div></div><div class="card metric"><div class="top">↻ Rotation options</div><div class="num">3</div><div class="note">Compare alternatives</div></div><div class="card metric"><div class="top">▤ Market listings</div><div class="num">${state.marketCloud.length}</div><div class="note">Registered farmers only</div></div></div>`}
 function contextBanner(){
@@ -193,7 +195,7 @@ async function sendMarketInquiry(listingId){
  alert(error?'Unable to send inquiry: '+error.message:'Inquiry sent privately to the listing owner.');
 }
 
-function render(){({farms:farmsPage,dashboard:overview,community,rotation,climate,explorer,research,market,advisor,profile,simulation,greenhouse,scanner,help,about,stories,admin,account,notifications}[state.page]||overview)()}
+function render(){({farms:farmsPage,dashboard:overview,community,messages:novaChatPage,rotation,climate,explorer,research,market,advisor,profile,simulation,greenhouse,scanner,help,about,stories,admin,account,notifications}[state.page]||overview)()}
 function saveState(){storage.set('posts',state.posts.filter(p=>!p.remoteId));storage.set('market',state.market);storage.set('profile',state.profile);storage.set('country',state.country);storage.set('likes',state.likes)}
 const uid=()=>`${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
 async function addPost(p){state.posts.unshift(p);saveState();if(state.supabase&&state.auth){if(state.restriction?.restricted){alert('This account is restricted from publishing. Contact the administrators.');return}const {error}=await state.supabase.from('community_posts').insert({author_id:state.auth.id,author_name:p.name,district:p.district,sector:p.sector,topic:p.topic,body:p.body});if(error)alert('Cloud save failed; post remains local: '+error.message);else {state.posts=state.posts.filter(x=>x.id!==p.id);storage.set('posts',state.posts.filter(x=>!x.remoteId));await fetchSupaPosts();await recordActivity('community_post','Shared a community farming post')}}else if(state.firestore&&state.auth){try{await state.fb.addDoc(state.fb.collection(state.firestore,'posts'),{uid:state.auth.uid,name:p.name,district:p.district,sector:p.sector,topic:p.topic,body:p.body,createdAt:state.fb.serverTimestamp(),likes:0})}catch(e){alert('Cloud save failed. A local demo copy was saved: '+e.message)}}}
@@ -344,5 +346,111 @@ function setupRealtime(){if(!state.supabase)return;if(realtimeChannel){state.sup
  realtimeChannel=state.supabase.channel('fieldshift-live-'+state.auth.id)
  .on('postgres_changes',{event:'*',schema:'public',table:'community_posts'},async()=>{await fetchSupaPosts();if(state.page==='community'||state.page==='dashboard'||state.page==='admin')render()})
  .on('postgres_changes',{event:'*',schema:'public',table:'community_comments'},async()=>{await fetchSupaPosts();if(state.page==='community'||state.page==='dashboard')render()})
+ .on('postgres_changes',{event:'INSERT',schema:'public',table:'nova_chat_messages',filter:'recipient_id=eq.'+state.auth.id},async()=>{if(state.page==='messages')await loadNovaMessages()})
  .on('postgres_changes',{event:'INSERT',schema:'public',table:'farm_notifications',filter:'user_id=eq.'+state.auth.id},async()=>{await loadPersonalData();if(state.page==='notifications')render()}).subscribe();
 }
+
+
+// NOVA CHAT — authenticated, opt-in private farmer messaging.
+const novaChat = {owner:null, ready:false, loading:false, busy:false, available:false, users:[], blocks:[], peer:null, messages:[], error:'', notice:''};
+function novaReset(){novaChat.owner=state.auth?.id||null;novaChat.ready=false;novaChat.loading=false;novaChat.available=false;novaChat.users=[];novaChat.blocks=[];novaChat.peer=null;novaChat.messages=[];novaChat.error='';novaChat.notice='';}
+const novaSafeId=id=>/^[0-9a-f-]{36}$/i.test(String(id||''));
+async function novaLoadDirectory(){
+ if(!state.auth||!state.supabase)return;
+ if(novaChat.loading)return;
+ novaChat.loading=true;
+ try{
+  const [own,peers,blocked]=await Promise.all([
+   state.supabase.from('nova_chat_profiles').select('user_id,available').eq('user_id',state.auth.id).maybeSingle(),
+   state.supabase.from('nova_chat_profiles').select('user_id,display_name,district').eq('available',true).order('display_name').limit(100),
+   state.supabase.from('nova_chat_blocks').select('blocked_id').eq('blocker_id',state.auth.id)
+  ]);
+  if(own.error||peers.error||blocked.error)throw Error(own.error?.message||peers.error?.message||blocked.error?.message);
+  novaChat.available=!!own.data?.available;
+  novaChat.blocks=(blocked.data||[]).map(b=>b.blocked_id);
+  novaChat.users=(peers.data||[]).filter(u=>u.user_id!==state.auth.id);
+  novaChat.ready=true;novaChat.error='';
+ }catch(e){novaChat.error=e.message||'Could not load chats';}
+ finally{novaChat.loading=false;if(state.page==='messages')novaChatPage();}
+}
+async function loadNovaMessages(){
+ if(!state.auth||!state.supabase||!novaSafeId(novaChat.peer))return;
+ const me=state.auth.id,them=novaChat.peer;
+ const {data,error}=await state.supabase.from('nova_chat_messages')
+  .select('id,sender_id,recipient_id,body,created_at')
+  .or(`and(sender_id.eq.${me},recipient_id.eq.${them}),and(sender_id.eq.${them},recipient_id.eq.${me})`)
+  .order('created_at',{ascending:false}).limit(100);
+ if(error)novaChat.error=error.message;
+ else {novaChat.messages=(data||[]).reverse();novaChat.error='';}
+ if(state.page==='messages')novaChatPage();
+}
+function novaChatPage(){
+ const me=state.auth?.id||null;
+ if(novaChat.owner!==me)novaReset();
+ if(!state.auth||!state.supabase){
+  layout('<section class="card"><h3>Nova Chat</h3><p>Sign in with Google to message farmers privately.</p><button class="btn" data-page="profile">Sign in to continue</button></section>');return;
+ }
+ if(!novaChat.ready&&!novaChat.loading&&!novaChat.error)void novaLoadDirectory();
+ const selected=novaChat.users.find(u=>u.user_id===novaChat.peer);
+ const contacts=novaChat.users.filter(u=>!novaChat.blocks.includes(u.user_id));
+ layout(`<section class="nova-chat-shell">
+  <div class="nova-chat-head"><div><h2>✉ Nova Chat</h2><p>Private conversations between farmers who choose to be available. No precise locations are shared.</p></div>
+  <button type="button" class="btn ${novaChat.available?'secondary':''}" id="novaToggle">${novaChat.available?'Pause my availability':'Join farmer chat'}</button></div>
+  ${novaChat.error?`<p class="notice warn" role="alert">${escapeHTML(novaChat.error)}</p>`:''}
+  ${novaChat.notice?`<p class="nova-chat-notice" role="status">${escapeHTML(novaChat.notice)}</p>`:''}
+  <div class="nova-chat-grid"><aside class="nova-chat-people"><div class="nova-chat-section">Available farmers <span>${contacts.length}</span></div>
+  ${!novaChat.available?'<p class="nova-chat-empty">Select “Join farmer chat” to appear in the directory and send messages.</p>':''}
+  ${contacts.map(u=>`<button type="button" class="nova-chat-person ${u.user_id===novaChat.peer?'selected':''}" data-nova-peer="${escapeHTML(u.user_id)}"><span class="nova-chat-avatar">${escapeHTML(u.display_name?.charAt(0)||'F')}</span><span><strong>${escapeHTML(u.display_name)}</strong><small>${escapeHTML(u.district||'Farmer')}</small></span></button>`).join('')||'<p class="nova-chat-empty">No other farmers available yet. Invite another registered farmer to join Nova Chat.</p>'}
+  </aside><section class="nova-chat-conversation">${selected?`
+   <div class="nova-chat-partner"><div><strong>${escapeHTML(selected.display_name)}</strong><small>${escapeHTML(selected.district||'Farmer')} · Private conversation</small></div><button type="button" class="btn secondary small" id="novaBlock">Block farmer</button></div>
+   <div class="nova-chat-thread" role="log" aria-label="Conversation">${novaChat.messages.map(m=>`<div class="nova-chat-bubble ${m.sender_id===state.auth.id?'mine':'theirs'}"><p>${escapeHTML(m.body)}</p><small>${escapeHTML(new Date(m.created_at).toLocaleString())}</small></div>`).join('')||'<p class="nova-chat-empty">No messages yet. Start with a respectful greeting.</p>'}</div>
+   <form id="novaMessageForm" class="nova-chat-compose"><label for="novaMessage" class="sr-only">Write a private message</label><textarea id="novaMessage" name="message" required maxlength="1500" rows="2" placeholder="Write a message..." ${!novaChat.available?'disabled':''}></textarea><button class="btn" type="submit" ${!novaChat.available?'disabled':''}>Send</button></form>
+  `:'<div class="nova-chat-placeholder"><span>🌱</span><h3>Grow connections, one conversation at a time.</h3><p>Select an available farmer to start a private chat.</p></div>'}</section></div>
+  <p class="nova-chat-privacy">Please avoid sharing passwords, precise home or farm locations, or sensitive personal information. You can block a farmer at any time.</p>
+ </section>`);
+ const thread=document.querySelector('.nova-chat-thread');if(thread)thread.scrollTop=thread.scrollHeight;
+}
+async function novaToggleAvailability(){
+ if(!state.auth||!state.supabase||novaChat.busy)return;
+ novaChat.busy=true;novaChat.error='';
+ try{
+  const available=!novaChat.available;
+  const profileName=String(state.profile?.name||state.auth.user_metadata?.full_name||'Farmer').trim().slice(0,60)||'Farmer';
+  const {error}=await state.supabase.from('nova_chat_profiles').upsert({user_id:state.auth.id,display_name:profileName,district:String(state.profile?.district||'').slice(0,80),available,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  if(error)throw error;
+  novaChat.available=available;novaChat.notice=available?'You are now visible to other available farmers.':'Your profile is hidden from the farmer directory.';
+  await novaLoadDirectory();
+ }catch(e){novaChat.error=e.message||'Could not change availability';}
+ finally{novaChat.busy=false;if(state.page==='messages')novaChatPage();}
+}
+async function novaSend(message){
+ if(!novaChat.available||!novaSafeId(novaChat.peer)||novaChat.busy||!state.auth)return;
+ const body=String(message||'').trim();if(!body||body.length>1500)return;
+ novaChat.busy=true;
+ try{
+  const {error}=await state.supabase.from('nova_chat_messages').insert({sender_id:state.auth.id,recipient_id:novaChat.peer,body});
+  if(error)throw error;
+  await loadNovaMessages();
+ }catch(e){novaChat.error=e.message||'Message could not be sent';}
+ finally{novaChat.busy=false;if(state.page==='messages')novaChatPage();}
+}
+async function novaBlockSelected(){
+ if(!novaSafeId(novaChat.peer)||!state.auth||!confirm('Block this farmer? They will not be able to message you.'))return;
+ const {error}=await state.supabase.from('nova_chat_blocks').insert({blocker_id:state.auth.id,blocked_id:novaChat.peer});
+ if(error){novaChat.error=error.message;novaChatPage();return;}
+ novaChat.peer=null;novaChat.messages=[];novaChat.notice='Farmer blocked.';await novaLoadDirectory();
+}
+document.addEventListener('click',async e=>{
+ if(e.target.closest('#novaToggle')){await novaToggleAvailability();return;}
+ if(e.target.closest('#novaBlock')){await novaBlockSelected();return;}
+ const button=e.target.closest('[data-nova-peer]');if(!button)return;
+ if(!novaChat.available){novaChat.notice='Join farmer chat before opening a conversation.';novaChatPage();return;}
+ const id=button.dataset.novaPeer;
+ if(!novaSafeId(id)||novaChat.blocks.includes(id))return;
+ novaChat.peer=id;novaChat.messages=[];novaChatPage();await loadNovaMessages();
+});
+document.addEventListener('submit',async e=>{
+ if(e.target.id!=='novaMessageForm')return;
+ e.preventDefault();const field=e.target.querySelector('[name="message"]');if(field)await novaSend(field.value);
+});
+

@@ -433,3 +433,34 @@ textarea::placeholder {
     min-height: 310px;
   }
 }
+
+/* Nova Chat: private farmer messages */
+.nova-chat-shell{background:var(--panel-bg,#fff);border:1px solid var(--line-color,#d9e6d9);color:var(--main-text,#163b32);border-radius:20px;padding:20px;box-shadow:0 10px 34px #123d2a0a}
+.nova-chat-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.nova-chat-head h2{margin:0;color:var(--main-text,#163b32)}
+.nova-chat-head p,.nova-chat-privacy{font-size:12px;color:var(--sub-text,#5b7664)}
+.nova-chat-grid{display:grid;grid-template-columns:minmax(205px,290px) minmax(0,1fr);border:1px solid var(--line-color,#dce8dd);border-radius:16px;overflow:hidden;min-height:460px}
+.nova-chat-people{border-right:1px solid var(--line-color,#dce8dd);background:var(--input-bg,#f7faf6);padding:14px;min-width:0}
+.nova-chat-section{display:flex;justify-content:space-between;font-size:13px;font-weight:800;padding:8px 6px 14px}
+.nova-chat-person{display:flex;align-items:center;gap:10px;width:100%;padding:12px 8px;text-align:left;border:0;background:transparent;color:var(--main-text,#163b32);border-radius:12px}
+.nova-chat-person:hover,.nova-chat-person.selected{background:rgba(91,173,108,.18)}
+.nova-chat-person strong,.nova-chat-person small{display:block;overflow-wrap:anywhere}
+.nova-chat-person small,.nova-chat-partner small{font-size:11px;opacity:.7;margin-top:3px}
+.nova-chat-avatar{flex:0 0 36px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#b9e4bf;color:#16442d;font-weight:800}
+.nova-chat-conversation{display:flex;flex-direction:column;min-width:0;min-height:450px}
+.nova-chat-partner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px;border-bottom:1px solid var(--line-color,#dce8dd)}
+.nova-chat-partner small{display:block}
+.nova-chat-thread{flex:1;height:340px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:20px;background:var(--page-bg,#edf3e9)}
+.nova-chat-bubble{max-width:82%;padding:12px 15px;border-radius:15px;background:var(--panel-bg,#fff);align-self:flex-start;overflow-wrap:anywhere}
+.nova-chat-bubble.mine{background:#216c4b;color:#fff;align-self:flex-end}
+.nova-chat-bubble p{margin:0 0 5px;white-space:pre-wrap;font-size:13px;line-height:1.5;color:inherit}
+.nova-chat-bubble small{opacity:.65;font-size:10px}
+.nova-chat-compose{display:flex;gap:10px;padding:13px;border-top:1px solid var(--line-color,#dce8dd)}
+.nova-chat-compose textarea{flex:1;min-width:0;padding:10px;border:1px solid var(--line-color,#dce8dd);border-radius:12px;color:var(--main-text,#163b32);background:var(--input-bg,#fff);resize:vertical}
+.nova-chat-empty{font-size:12px;color:var(--sub-text,#607a68);padding:8px;line-height:1.6}
+.nova-chat-placeholder{margin:auto;text-align:center;max-width:330px;padding:32px;color:var(--sub-text,#5b7664)}
+.nova-chat-placeholder span{font-size:40px}
+.nova-chat-placeholder h3{color:var(--main-text,#163b32)}
+.nova-chat-notice{padding:8px 12px;background:#e4f7e7;border-radius:10px;color:#155536;font-size:12px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:700px){.nova-chat-head{flex-wrap:wrap}.nova-chat-grid{grid-template-columns:1fr}.nova-chat-people{border-right:0;border-bottom:1px solid var(--line-color,#dce8dd);max-height:220px;overflow:auto}.nova-chat-thread{height:280px}.nova-chat-shell{padding:10px}}
