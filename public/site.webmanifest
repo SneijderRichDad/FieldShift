@@ -1,7 +1,7 @@
 {
-  "name": "IhingaLink AI - FieldShift",
-  "short_name": "IhingaLink",
-  "description": "Agriculture intelligence for farmers",
+  "name": "AgriNova \u2014 Smart Agriculture",
+  "short_name": "AgriNova",
+  "description": "Smarter Farming. Stronger Communities.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
