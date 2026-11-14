@@ -1,4 +1,4 @@
-> **Release status (11 Nov 2026):** The real Supabase project is active and has 14 RLS-protected public tables and two private media buckets. The website is configured to use that project when its public build variables are supplied. **Google OAuth and Cloudflare deployment still need activation and end-to-end verification.** GitHub write access for the connector is currently denied (403). See `docs/CLOUDFLARE_DEPLOYMENT.md`.
+> **Release status (14 November 2026):** New farmer marketplace features are built into the attached source and the Supabase production schema has been upgraded. This archive has passed 26 Node automated tests and JavaScript syntax checks. A fresh local Vite build was unavailable here because npm dependencies were not installed; run `npm install && npm run build && npm test` in GitHub Codespaces before deploying. The **live Cloudflare site is still on the earlier version until you deploy this release**.
 
 # IhingaLink AI — Better harvests, together 🇷🇼
 
@@ -19,9 +19,9 @@ Rwanda-first agricultural collaboration and crop-rotation planning **prototype**
 - Farmer Community: by district/sector with posts, replies, likes, search, local examples and optional Supabase cloud storage.
 - Rotation Studio: compares three illustrative rotations by water, soil and diversity weights (not scientifically calibrated).
 - Climate Intelligence: request NASA POWER historical temperature and rainfall data; source dates labeled; failure never fills invented readings.
-- Farm Explorer: interactive OpenStreetMap location context for a **subset** of districts, not measured field polygons/NDVI.
+- Farm Explorer: interactive OpenStreetMap location context for **all 30** Rwanda districts (approximate reference markers), not measured field polygons/NDVI.
 - NASA Research: curated dated science/research links.
-- Local Marketplace: registered farmer seller listings in Supabase plus visibly marked examples, filter by district/crop, optional latest public Google News RSS headlines (not verified commodity prices).
+- Local Marketplace: authenticated real seller offers and buyer requests in Supabase; country, district, crop and type filters; private inquiry inbox; links to independent local marketplaces, optional latest public Google News RSS headlines (not verified commodity prices).
 - AI Farm Advisor: rule-based fallback and optional authenticated NVIDIA NIM server API.
 - Climate Simulator: what-if rainfall/temperature sliders (scenarios are **not forecasts**).
 - Greenhouse Planner: season, crop, water considerations (not calibrated agronomic schedules).
@@ -103,3 +103,29 @@ The working Supabase backend now exists. See `docs/SUPABASE_LIVE_CONNECTION.md` 
 
 ### Connected-design release
 The default **public** Supabase URL and publishable key are now included in `app.js` so Vite builds can use the active project immediately. **Never** commit a service-role key. This does not activate Google OAuth, which still needs a provider credential and allowed hosting domain in Supabase Authentication.
+
+## Marketplace upgrade — 14 Nov 2026
+
+- Complete official Rwanda district list (30 districts). Sector names remain user-entered rather than pretending incomplete static lists are exhaustive.
+- Country selector: Rwanda, Uganda, Kenya, Tanzania, Burundi and DR Congo. This extends marketplace browsing and publishing context; it **does not** certify farm-climate support outside Rwanda.
+- Real authenticated buyer requests and farmer seller offers are held in Supabase. No scraped or invented buyers.
+- Private inquiry messaging between logged-in users; only participants can view each message by RLS.
+- Independent real marketplaces linked: eHaho, Agrimobile and eHingiriSoko; their content is not integrated as a live FieldShift feed.
+
+### Deploy from Codespaces
+
+```bash
+# Upload this release ZIP to the root of your Codespace and then:
+unzip -o FieldShift_AI_Marketplace_30_Districts_Release.zip
+npm install
+npm run build
+npm test
+git add app.js styles.css README.md tests/marketplace.test.js supabase/005_live_market_buyers.sql docs/MARKETPLACE_LIVE_2026_11_14.md
+git commit -m "Add Rwanda districts, country switcher and live buyer marketplace"
+git push origin main
+npx wrangler pages deploy dist --project-name=fieldshift-pages --branch=main
+```
+
+**Already applied:** live Supabase schema modifications for `listing_type`, `country`, `currency`, `price_amount` and `market_inquiries`. Do not blindly rerun migration files on production.
+
+**IMPORTANT:** The public site needs a fresh deployment of this source. Google OAuth and live tests using actual registered farmer accounts remain to be verified.
