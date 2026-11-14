@@ -156,3 +156,280 @@ button{font-family:inherit;cursor:pointer}button:focus-visible,a:focus-visible,i
   }
 }
 
+
+/* ===========================================
+   FIELDSHIFT AI — DYNAMIC THEME SYSTEM
+   =========================================== */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #edf3e9;
+  --panel-bg: #ffffff;
+  --top-bg: #f9fcf7;
+  --main-text: #153e30;
+  --sub-text: #587362;
+  --line-color: #d9e6d9;
+  --input-bg: #fbfdf9;
+  --accent: #23764e;
+}
+
+[data-theme="mixed"] {
+  color-scheme: dark;
+  --page-bg: #183a30;
+  --panel-bg: #284e3e;
+  --top-bg: #1e4536;
+  --main-text: #f0f7ec;
+  --sub-text: #c4d9c9;
+  --line-color: #466b57;
+  --input-bg: #234333;
+  --accent: #8fd5a1;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #0a1a16;
+  --panel-bg: #182e26;
+  --top-bg: #10251e;
+  --main-text: #edf7ef;
+  --sub-text: #bad1c3;
+  --line-color: #365246;
+  --input-bg: #10241e;
+  --accent: #79d69a;
+}
+
+body,
+.shell,
+.main {
+  background: var(--page-bg);
+  color: var(--main-text);
+}
+
+body {
+  background-image:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(68, 150, 95, .1),
+      transparent 35%
+    );
+}
+
+.topbar {
+  background: var(--top-bg);
+  border-color: var(--line-color);
+}
+
+.card,
+.market-live-card,
+.market-stats > div,
+.market-empty {
+  background: var(--panel-bg);
+  border-color: var(--line-color);
+  color: var(--main-text);
+}
+
+.page-title,
+.section-head h3,
+.card h3,
+.card h4,
+.market-live-head strong,
+.market-stats strong,
+.metric .num,
+.market-empty h3 {
+  color: var(--main-text);
+}
+
+.subtitle,
+.muted,
+.card p,
+.metric .top,
+.post p,
+.postmeta,
+.market-details,
+.market-live-detail,
+.market-live-bottom > span {
+  color: var(--sub-text);
+}
+
+.input,
+input,
+textarea,
+select,
+.search {
+  background: var(--input-bg);
+  color: var(--main-text);
+  border-color: var(--line-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--sub-text);
+  opacity: .78;
+}
+
+.search input {
+  background: transparent;
+}
+
+.chip,
+.pill,
+.country-label,
+.connection-pill,
+.btn.secondary {
+  background: var(--input-bg);
+  color: var(--main-text);
+  border-color: var(--line-color);
+}
+
+.list-line,
+.postactions,
+.market-live-bottom,
+.market-inbox-item {
+  border-color: var(--line-color);
+}
+
+[data-theme="dark"] .notice,
+[data-theme="mixed"] .notice {
+  background: #304333;
+  border-color: #63714b;
+  color: #f5eccb;
+}
+
+[data-theme="dark"] .market-external a,
+[data-theme="mixed"] .market-external a {
+  background: var(--input-bg);
+  color: var(--main-text);
+  border-color: var(--line-color);
+}
+
+/* Theme toggle */
+.theme-switch {
+  background: var(--panel-bg);
+  color: var(--main-text);
+  border: 1px solid var(--line-color);
+  border-radius: 13px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.theme-switch:hover {
+  border-color: var(--accent);
+}
+
+.theme-switch:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ===========================================
+   AUTOMATIC AGRICULTURAL PHOTO SLIDESHOW
+   =========================================== */
+
+.hero {
+  isolation: isolate;
+  background: #123d2e;
+  min-height: 350px;
+  position: relative;
+}
+
+.hero::after {
+  content: none;
+}
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  animation: fieldshiftSlide 18s infinite;
+}
+
+/* Agricultural landscapes */
+.slide-one {
+  background-image: url(
+    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1800&q=85"
+  );
+  animation-delay: 0s;
+}
+
+.slide-two {
+  background-image: url(
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1800&q=85"
+  );
+  animation-delay: -12s;
+}
+
+.slide-three {
+  background-image: url(
+    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1800&q=85"
+  );
+  animation-delay: -6s;
+}
+
+@keyframes fieldshiftSlide {
+  0%   { opacity: 0; transform: scale(1.03); }
+  5%   { opacity: 1; }
+  28%  { opacity: 1; }
+  34%  { opacity: 0; }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
+.hero-slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(5, 32, 22, .94) 0%,
+    rgba(5, 45, 27, .75) 52%,
+    rgba(5, 45, 27, .24) 100%
+  );
+}
+
+.hero > *:not(.hero-slides) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h2,
+.hero p {
+  color: white;
+}
+
+.hero:hover .hero-slide {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    animation: none !important;
+    opacity: 0;
+    transform: none;
+  }
+
+  .slide-one {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 850px) {
+  .theme-switch {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .hero {
+    min-height: 310px;
+  }
+}
