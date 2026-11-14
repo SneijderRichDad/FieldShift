@@ -92,3 +92,67 @@ button{font-family:inherit;cursor:pointer}button:focus-visible,a:focus-visible,i
   height: 22px;
   flex-shrink: 0;
 }
+
+/* IHINGALINK — PREMIUM AGRICULTURAL DASHBOARD HERO */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 340px;
+  padding: clamp(28px, 5vw, 58px);
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(6, 43, 30, 0.94) 0%,
+      rgba(10, 64, 42, 0.82) 48%,
+      rgba(14, 70, 43, 0.25) 100%
+    ),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
+      center center / cover no-repeat;
+
+  color: #ffffff;
+  box-shadow: 0 18px 48px rgba(10, 60, 37, 0.15);
+}
+
+.hero h2 {
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.12;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.15);
+}
+
+.hero p {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+.hero .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.hero .hero-art {
+  opacity: 0.75;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 300px;
+    padding: 30px 24px;
+    border-radius: 20px;
+
+    background-position: 58% center;
+  }
+
+  .hero h2 {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+}
+
