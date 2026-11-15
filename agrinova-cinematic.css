@@ -853,3 +853,62 @@ body {
   }
 }
 
+
+/* AGRINOVA PHONE-STYLE NOTIFICATION BELL */
+
+.nova-notification-bell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 14px;
+  border: 1px solid #369681;
+  background: #082e34;
+  color: #effff8;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s;
+}
+
+.nova-notification-bell:hover {
+  background: #0c574b;
+  box-shadow: 0 0 16px #36ecc05a;
+}
+
+.nova-notification-bell:focus-visible {
+  outline: 3px solid #f5ce75;
+  outline-offset: 2px;
+}
+
+.nova-notification-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 20px;
+  background: #f0434d;
+  color: #fff;
+  border: 2px solid #061e25;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.nova-notification-count[hidden] {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .nova-notification-bell {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+}
+

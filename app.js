@@ -287,6 +287,27 @@ function agriTranslatePage(){
 }
 
 function layout(content){$('#app').innerHTML=`<div class="layout"><aside class="sidebar" id="sidebar"><div class="logo"><span class="logo-mark">🌱</span><span>AgriNova<small>AI · ${escapeHTML(state.country)}</small></span></div><div class="nav-label">WORKSPACE</div>${navItems.filter(([id])=>id!=='admin'||state.storyAdmin).map(([id,icon,label],index)=>`${index===8?'<div class="nav-label">MORE TO EXPLORE</div>':''}<button class="nav ${state.page===id?'active':''}" data-page="${id}"><span class="icon">${icon}</span>${label}</button>`).join('')}<div class="sidebar-bottom"><b>🌱 Better harvests, together.</b><p>Good farming decisions grow stronger when local experience meets Earth science.</p><button data-page="community">Explore community →</button></div></aside><div class="shell"><header class="topbar"><div style="display:flex;gap:12px;align-items:center"><button class="btn secondary small mobilemenu" id="mobileMenu">☰</button>${cinematicTopNav()}</div><div class="topright">
+<button type="button"
+  class="nova-notification-bell"
+  data-page="notifications"
+  aria-label="Notifications"
+  title="My notifications">
+  <svg viewBox="0 0 24 24"
+       width="24" height="24"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="2"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       aria-hidden="true">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+    <path d="M10 21h4"/>
+  </svg>
+  <span class="nova-notification-count"
+        ${!state.auth || !(state.notifications||[]).some(n=>!n.is_read) ? 'hidden' : ''}>
+    ${Math.min(99,(state.notifications||[]).filter(n=>!n.is_read).length)}
+  </span>
+</button>
 <button type="button" id="themeToggle"
  class="theme-switch"
  aria-label="Change application appearance">
@@ -616,6 +637,13 @@ async function loadPersonalData(){if(!state.supabase||!state.auth)return;try{
  state.supabase.from('farm_notifications').select('id,title,body,is_read,created_at').order('created_at',{ascending:false}).limit(30),
  state.supabase.from('user_restrictions').select('restricted,reason').eq('user_id',state.auth.id).maybeSingle()]);
  state.accountData={activity:activity.data||[]};state.notifications=notice.data||[];state.restriction=restriction.data||null;
+ const badge=document.querySelector('.nova-notification-count');
+ if(badge){
+   const unread=state.notifications.filter(n=>!n.is_read).length;
+   badge.textContent=String(Math.min(99,unread));
+   badge.hidden=!unread;
+ }
+
  if(activity.error||notice.error)state.authError='Account activity requires the admin_and_activity.sql migration.';
  if(state.page==='account'||state.page==='notifications')render()
  }catch(e){console.warn('Private account fetch failed',e)}}
