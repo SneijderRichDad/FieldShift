@@ -540,14 +540,29 @@ function scanner(){layout(`${contextBanner()}<div class="grid two"><section clas
 function help(){layout(`<div class="grid two"><section class="card"><h3>Account and access</h3><p class="muted">Google login and password reset use real Supabase Auth when configured. Your Google password is never collected by this app.</p><button class="btn" data-page="profile">Open sign-in settings</button><button class="btn secondary" id="resetPassword" style="margin-left:8px">Request password reset</button><h3>Security checklist</h3><div class="list-line">✓ Use an authorized OAuth redirect domain</div><div class="list-line">✓ No secret keys in browser code</div><div class="list-line">✓ Restrict community data using RLS</div><div class="list-line">✓ Share district or sector rather than exact address</div></section><section class="card"><h3>Help center</h3><details open><summary><b>My Google sign-in isn't working</b></summary><p class="muted">Check Supabase Google provider, Site URL, and allowed redirect URLs. Browser popup or account restrictions may apply.</p></details><hr/><details><summary><b>Why don't I see live market prices?</b></summary><p class="muted">Only trusted sources with permission and a documented API can be integrated. Sample offers are never described as verified market prices.</p></details><hr/><details><summary><b>Can the crop scanner diagnose disease?</b></summary><p class="muted">Not yet. Submit observations and consult a trained agronomist to confirm symptoms.</p></details><hr/><details><summary><b>Is NASA climate history a forecast?</b></summary><p class="muted">No. The POWER daily service gives gridded historical meteorological estimates.</p></details></section></div>`)}
 function about(){
  const founders=[
- ['MANZI Snejder Arsenal','Product vision & team coordination'],
- ['GISUBIZO Moise','Web application & frontend development'],
- ['UMUTONIWASE Kenitha','UX, accessibility & farmer onboarding'],
- ['MUKUNZI Ally Muhadjir','Backend, data privacy & testing'],
- ['KUNDWA KEZA Dalcia','Markets & farmer partnerships'],
- ['ISARO Sasha Salmah','Climate research & agronomy evidence']
+  ['MANZI Snejder Arsenal','Product & Vision Lead'],
+  ['MUKUNZI Ally Muhadjir','Data & Platform Operations'],
+  ['GISUBIZO Moise','Research & Field Insights'],
+  ['KUNDWA KEZA Dalcia','Community & User Experience'],
+  ['UMUTONIWASE Kenitha','UI/UX & Communication'],
+  ['ISARO Sasha Salmah','Outreach & Documentation']
  ];
- layout(`<div class="hero"><div><span class="eyebrow" style="color:white">AGRINOVA · NOVAX LAB · RWANDA</span><h2>Smarter Farming. Stronger Communities.</h2><p>Accessible farming decisions supported by NASA historical climate observations and farmer experience.</p><button class="btn white" data-page="simulation">Explore climate scenarios →</button></div><div class="hero-art">🌱</div></div><div class="grid two" style="margin-top:18px"><div class="card"><h3>Our mission</h3><p>Help farmers understand historical climate, compare crop-rotation options, document farms, and connect with agricultural communities.</p><p class="muted">AgriNova is an educational prototype, not an official NASA service, certified agronomy tool or weather-forecast service.</p></div><div class="card"><h3>Project credits</h3><p><b>Team:</b> NovaX Lab · Rwanda · NASA Space Apps Field Shift challenge</p><p><b>NASA data:</b> NASA POWER historical T2M and PRECTOTCORR. <a href="https://power.larc.nasa.gov/" target="_blank" rel="noopener noreferrer">NASA POWER ↗</a></p><p><b>Technology:</b> JavaScript, Vite, Supabase, Cloudflare Pages, GitHub, OpenStreetMap.</p><p class="muted">AI-assisted code and presentation materials are disclosed in submission documentation. Third-party imagery and resources must retain their applicable attribution.</p></div></div><div class="section-head"><h3>Meet the six co-founders</h3></div><p class="muted">Responsibilities below are proposed work areas for the team to confirm internally.</p><div class="grid three">${founders.map(([name,role])=>`<div class="card"><div style="font-size:27px;margin-bottom:10px">🌿</div><h3 style="font-size:16px;margin-bottom:8px">${escapeHTML(name)}</h3><p class="muted">Co-founder · ${escapeHTML(role)}</p></div>`).join('')}</div>`);
+ const goals=[
+  ['🌱','Improve crop rotation decisions.'],
+  ['🌦','Connect farmers to climate and market intelligence.'],
+  ['📍','Make guidance more accessible and localized.']
+ ];
+ layout(`<div class="novax-about">
+   <section class="novax-about-hero" aria-label="Team NovaX Lab illustrated introduction">
+     <img src="/agrinova-assets/novax-lab-team.png" loading="eager" alt="Team NovaX Lab: six co-founders and objectives, against an illustrated agricultural landscape of Rwanda" />
+   </section>
+   <div class="novax-about-heading"><div><span class="eyebrow">DEVELOPED BY TEAM NOVAX LAB</span><h2>Young innovators. Practical agricultural technology.</h2><p>We are building AgriNova to make crop planning, climate history and farmer connections easier to understand and use.</p></div><button class="btn secondary" data-page="dashboard">Explore AgriNova ↗</button></div>
+   <div class="novax-about-columns">
+     <section class="novax-about-section"><h3>♧ Our Team</h3><div class="novax-team-grid">${founders.map(([name,role])=>`<article class="novax-team-card"><span aria-hidden="true" class="novax-person-icon">♙</span><div><strong>${escapeHTML(name)}</strong><p>${escapeHTML(role)}</p></div></article>`).join('')}</div></section>
+     <section class="novax-about-section"><h3>◎ Our Objectives</h3><div class="novax-goals">${goals.map(([icon,goal])=>`<div class="novax-goal"><span aria-hidden="true">${icon}</span><p>${escapeHTML(goal)}</p></div>`).join('')}</div></section>
+   </div>
+   <section class="novax-about-credits"><div><h3>Our mission</h3><p>Support informed crop-rotation planning by combining farmer records, historical climate observations, educational agronomy guidance and farmer-to-farmer connections.</p><p class="muted">Team responsibilities shown here are proposed roles for the co-founders to confirm.</p></div><div><h3>Project credits</h3><p>NASA POWER historical climate estimates; Supabase, Cloudflare Pages, GitHub and OpenStreetMap. The illustrative hero artwork is AI-generated and is not live satellite or meteorological data.</p><a href="https://power.larc.nasa.gov/" target="_blank" rel="noopener noreferrer">NASA POWER data source ↗</a></div></section>
+ </div>`);
 }
 
 function startSpeech(){const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Speech){alert('Voice recognition is not available in this browser. Try Chrome or type your question.');return}const r=new Speech();r.lang=state.lang==='rw'?'rw-RW':'en-US';r.interimResults=false;r.onresult=e=>{const box=document.querySelector('#chatQuestion');if(box)box.value=e.results[0][0].transcript};r.onerror=e=>alert('Microphone recognition: '+e.error);r.start()}

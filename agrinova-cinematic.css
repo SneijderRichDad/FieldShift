@@ -912,3 +912,31 @@ body {
   }
 }
 
+
+
+/* NOVAX LAB — Cinematic About Us artwork and responsive information */
+.novax-about{display:flex;flex-direction:column;gap:20px}
+.novax-about-hero{border:1px solid #1aab86;border-radius:22px;overflow:hidden;background:#03191e;box-shadow:0 16px 45px #0006}
+.novax-about-hero img{display:block;width:100%;height:auto;aspect-ratio:1919/1079;object-fit:contain}
+.novax-about-heading{background:linear-gradient(110deg,#0b3e3c,#09242e);border:1px solid #258a76;border-radius:20px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.novax-about-heading h2{margin:6px 0;color:#fff;font-size:clamp(23px,2.5vw,34px)}
+.novax-about-heading p{margin:8px 0 0;color:#c4e3d9;line-height:1.6}
+.novax-about-columns{display:grid;grid-template-columns:1.55fr 1fr;gap:18px}
+.novax-about-section,.novax-about-credits{border:1px solid #2b9d84;border-radius:20px;background:linear-gradient(135deg,#0b3c39,#06232b);padding:24px;box-shadow:0 10px 30px #0003}
+.novax-about-section>h3{font-size:23px;color:#f4cd75;margin:0 0 20px}
+.novax-team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.novax-team-card,.novax-goal{background:linear-gradient(120deg,#0b5148,#082c31);border:1px solid #288e77;border-radius:16px;display:flex;gap:12px;align-items:center;padding:16px;min-width:0}
+.novax-team-card strong{font-size:16px;color:#fff;line-height:1.4;overflow-wrap:anywhere}
+.novax-team-card p{font-size:14px;color:#f4cd75;margin:4px 0 0}
+.novax-person-icon{display:grid;place-items:center;border:1px solid #31cba3;min-width:44px;width:44px;height:44px;border-radius:50%;font-size:26px;color:#aaffdc}
+.novax-goals{display:flex;flex-direction:column;gap:12px}
+.novax-goal>span{font-size:32px;min-width:46px;text-align:center}
+.novax-goal p{color:#effff8;font-size:16px;line-height:1.5;margin:0}
+.novax-about-credits{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.novax-about-credits h3{color:#f5cf7b;margin:0 0 8px}
+.novax-about-credits p{font-size:14px;color:#c9e9dc;line-height:1.7}
+.novax-about-credits a{color:#65efc0;text-decoration:underline}
+:root[data-theme="light"] .novax-about-section,:root[data-theme="light"] .novax-about-heading,:root[data-theme="light"] .novax-about-credits{background:#07332f;color:#fff}
+@media(max-width:1100px){.novax-about-columns{grid-template-columns:1fr}.novax-about-heading{align-items:start;flex-direction:column}}
+@media(max-width:650px){.novax-team-grid,.novax-about-credits{grid-template-columns:1fr}.novax-about-hero{border-radius:14px}.novax-about-section{padding:17px}.novax-team-card{padding:12px}.novax-team-card strong{font-size:15px}}
+
