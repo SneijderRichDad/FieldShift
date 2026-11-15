@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 const app=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 const validation=fs.readFileSync(new URL('../lib/story-validation.js',import.meta.url),'utf8');
-const pure=app.replace("import {validateStoryInput,validateStoryFile,isSupportedStoryVideo} from './lib/story-validation.js';",validation.replace(/\bexport /g,''))
+const pure=app.replace(/^import\s+['"]\.\/agrinova-cinematic\.css['"];?\s*$/gm,'').replace("import {validateStoryInput,validateStoryFile,isSupportedStoryVideo} from './lib/story-validation.js';",validation.replace(/\bexport /g,''))
  .replace(/\bexport function /g,'function ')
  .replaceAll('import.meta.env?.','({})?.')
  .replace('render();initSupabase().then(ok=>{if(!ok)initFirebase()});','render();');
