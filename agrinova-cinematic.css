@@ -1,0 +1,149 @@
+/* AgriNova cinematic control center — supplemental to existing CSS.
+   Dark navy + emerald + teal + gold, inspired by NovaX Lab pitch artwork.
+   Content values MUST come from actual application state. */
+:root[data-theme="mixed"],:root[data-theme="dark"]{
+  --page-bg:#061d22;--panel-bg:#092c30;--top-bg:#061b21;
+  --main-text:#f4fbf8;--sub-text:#b9d3ce;--line-color:#267d70;
+  --input-bg:#082f32;--accent:#3ae4b1;--green:#12a979;
+  --nova-gold:#f0c56c;--nova-glow:rgba(34,232,178,.29)
+}
+:root[data-theme="light"]{
+  --page-bg:#e9f4f0;--panel-bg:#f7fffd;--top-bg:#ebf8f4;
+  --main-text:#123c3c;--sub-text:#426967;--line-color:#acd3c8;
+  --input-bg:#ffffff;--accent:#00866a;--nova-gold:#af721e;--nova-glow:rgba(0,129,100,.16)
+}
+body{background:var(--page-bg)}
+.sidebar{background:linear-gradient(180deg,#041b23,#082e2d 50%,#041a22);border-right:1px solid #17665c}
+.sidebar .nav.active{background:linear-gradient(110deg,#096d59,#0b4f51);color:#fff;box-shadow:inset 3px 0 #65f9c4,0 0 22px #20bd9636}
+.sidebar .nav:hover{background:#15564a}
+.sidebar .logo-mark{background:#0c6953;color:#f4d384}
+.topbar{background:var(--top-bg);border-bottom:1px solid var(--line-color)}
+.topbar .search{background:var(--input-bg);border:1px solid var(--line-color);color:var(--main-text)}
+.topbar .search input{color:var(--main-text)!important}
+.topbar .country-label,.topbar #langSwitch,.topbar select,.topbar .theme-switch,.topbar .connection-pill{color:var(--main-text);background:var(--input-bg);border-color:var(--line-color)}
+.topbar select option{color:#102b2c;background:#eafff3}
+.main{max-width:1800px;padding:25px 30px 75px}
+.main .page-title{color:var(--main-text)}
+.main .subtitle,.muted,.section-head small{color:var(--sub-text)}
+.card,.market-live-card,.market-stats>div,.market-empty,.farm-record,.form-panel{background:var(--panel-bg);border:1px solid var(--line-color);color:var(--main-text);box-shadow:0 14px 32px #0002}
+.card h3,.market-live-head strong,.metric .num,.label{color:var(--main-text)}
+.input,.search input,.nova-chat-compose textarea{background:var(--input-bg);border-color:var(--line-color);color:var(--main-text)}
+.input::placeholder,.search input::placeholder{color:var(--sub-text);opacity:.8}
+.list-line,.postactions{border-color:var(--line-color);color:var(--sub-text)}
+.btn{background:#087b64;color:#fff}
+.btn.secondary{background:#143d3a;color:#d7fff1;border:1px solid #2a806d}
+.btn.outline{background:transparent;color:var(--main-text);border:1px solid var(--line-color)}
+.chip{background:#0b4c42;color:#a9ffe3}
+.notice{background:#133c35;color:#d0efdf;border-color:#417c62}
+.notice.warn{background:#473b1f;color:#ffe4ab;border-color:#89743e}
+:root[data-theme="light"] .notice{background:#dff4e9;color:#215844}
+:root[data-theme="light"] .chip{background:#dff3e9;color:#065946}
+:root[data-theme="light"] .btn.secondary{background:#d9f4e8;color:#0a5f4a}
+:root[data-theme="light"] .sidebar{background:linear-gradient(180deg,#073830,#082b2c)}
+:focus-visible{outline:3px solid #f0c56c!important;outline-offset:3px}
+@media(max-width:860px){.main{padding:18px 14px 50px}.topbar{padding:0 12px}}
+/* Dashboard: hide only the legacy sidebar; all other pages retain their navigation. */
+body.agrinova-dashboard .sidebar{display:none}
+body.agrinova-dashboard .main{max-width:1800px}
+body.agrinova-dashboard .main>.eyebrow,body.agrinova-dashboard .main>.page-title,body.agrinova-dashboard .main>.subtitle{display:none}
+.cinema-hub{font-family:'Outfit','DM Sans',system-ui,sans-serif;color:var(--main-text)}
+.cinema-hub *{box-sizing:border-box}
+.cinema-nav{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:16px}
+.cinema-nav button{background:#092e35;border:1px solid #2c6965;border-radius:14px;color:#e8fff7;padding:12px 15px;font-weight:750;white-space:nowrap;transition:.2s}
+.cinema-nav button:hover{background:#086b5e;border-color:#3bf7bb;transform:translateY(-2px)}
+.cinema-nav button[aria-current="page"]{background:#086e59;border-color:#58fac9;box-shadow:0 0 15px var(--nova-glow)}
+.cinema-titleline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0 18px}
+.cinema-titleline h2{font-size:clamp(20px,2vw,30px);margin:0;font-weight:800;letter-spacing:-.6px}
+.cinema-titleline small{color:var(--sub-text)}
+.cinema-hero{min-height:285px;position:relative;overflow:hidden;border-radius:24px;border:1px solid #35b999;padding:34px;display:flex;align-items:center;background:#071f27}
+.cinema-hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#041820 3%,#072a2dd9 44%,#05252b20 100%),url('/agrinova-assets/rwanda-landscape.webp') center 58%/cover no-repeat;opacity:1}
+.cinema-hero:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 74% 25%,#1ceb972b,transparent 31%);pointer-events:none}
+.cinema-hero>*{position:relative;z-index:1}
+.cinema-hero__copy{max-width:700px}
+.cinema-kicker{display:inline-block;color:#71efcb;font-weight:800;text-transform:uppercase;letter-spacing:2px;font-size:10px;margin-bottom:10px}
+.cinema-hero h1{font-size:clamp(31px,4.2vw,62px);line-height:1.06;letter-spacing:-2px;margin:0 0 14px}
+.cinema-hero h1 em{font-style:normal;color:#f6cc75}
+.cinema-hero p{color:#d9f3e9;line-height:1.65;font-size:15px;max-width:550px}
+.cinema-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.cinema-actions button,.cinema-actions a{border:1px solid #55f5c7;border-radius:12px;background:#06a47c;color:#fff;padding:12px 18px;font-size:13px;font-weight:800;cursor:pointer}
+.cinema-actions button:nth-child(2){background:#0a3839d9}
+.cinema-banner-note{display:block;font-size:11px;color:#a0d8c7;margin-top:15px}
+.cinema-dashboard-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px;margin-top:19px}
+.cinema-tile{min-width:0;position:relative;background:linear-gradient(150deg,#0b3c3a,#08262e 87%);border:1px solid #2da78a;border-radius:19px;padding:22px;overflow:hidden;color:#fff;box-shadow:0 8px 26px #03161585;transition:transform .2s,border-color .2s}
+.cinema-tile:hover{transform:translateY(-3px);border-color:#55f9b8}
+.cinema-tile::after{content:'';position:absolute;inset:auto 0 0 0;height:2px;background:linear-gradient(90deg,transparent,#36ecae,transparent);box-shadow:0 0 14px #43ffba9c}
+.cinema-tile.wide4{grid-column:span 4}.cinema-tile.wide6{grid-column:span 6}.cinema-tile.wide8{grid-column:span 8}
+.cinema-tile h3{margin:0 0 15px;font-size:19px;font-weight:800;display:flex;align-items:center;gap:10px;color:#fff}
+.cinema-tile h3 span{color:#f0c56c;font-size:26px}
+.cinema-tile p{color:#bfd9d2;font-size:13px;line-height:1.6}
+.cinema-number{font-size:clamp(27px,3vw,39px);font-weight:800;color:#f2ce7a;letter-spacing:-1px}
+.cinema-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cinema-pill{border:1px solid #397c6a;border-radius:13px;padding:8px 10px;color:#cff8e9;font-size:12px;background:#11453c}
+.cinema-tile button,.cinema-tile .cinema-link{display:inline-flex;margin-top:14px;color:#baffdd;font-size:12px;font-weight:800;background:transparent;border:0;padding:0;cursor:pointer;text-decoration:none}
+.cinema-tile button:hover{text-decoration:underline}
+.cinema-accent{color:#f5cf78;font-weight:800}
+.cinema-chart{display:flex;align-items:flex-end;gap:5px;height:87px;margin-top:14px}
+.cinema-chart i{display:block;min-width:6px;flex:1;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#73ffca,#049879);box-shadow:0 0 6px #27d49e50}
+.cinema-empty{font-size:12px;color:#a4cfc2;background:#0b292b;padding:12px;border-radius:12px;border:1px dashed #34665c}
+.cinema-footnote{font-size:11px;line-height:1.6;color:#a5c8bd;margin:18px 2px 0}
+:root[data-theme="light"] .cinema-nav button{background:#f6fffc;color:#114638;border-color:#8bcbb5}
+:root[data-theme="light"] .cinema-titleline{color:#123b36}
+:root[data-theme="light"] .cinema-tile{background:linear-gradient(130deg,#0b403f,#102931)}
+@media(max-width:1080px){.cinema-tile.wide4{grid-column:span 6}.cinema-tile.wide6{grid-column:span 6}.cinema-tile.wide8{grid-column:span 12}}
+@media(max-width:720px){.cinema-dashboard-grid{grid-template-columns:1fr}.cinema-tile.wide4,.cinema-tile.wide6,.cinema-tile.wide8{grid-column:span 1}.cinema-nav{flex-wrap:nowrap;overflow:auto;padding-bottom:6px}.cinema-hero{padding:24px 20px;min-height:260px}.cinema-hero h1{letter-spacing:-1px}.cinema-titleline{display:block}.cinema-titleline small{display:block;margin-top:6px}}
+@media(prefers-reduced-motion:reduce){.cinema-tile,.cinema-nav button{transition:none}}
+/* Reference-matched homepage: full-width horizontal header and cinematic cards */
+body.agrinova-dashboard .topbar{height:80px;padding:0 clamp(16px,2.8vw,45px);background:#021c21;border-bottom:1px solid #246c62;gap:9px}
+body.agrinova-dashboard .topbar>div:first-child{flex:1;min-width:0}
+body.agrinova-dashboard .main{padding:0 clamp(16px,2.3vw,39px) 60px;max-width:1900px}
+body.agrinova-dashboard .topbar .topright{gap:9px}
+body.agrinova-dashboard .topbar .connection-pill{max-width:175px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cinema-headernav{display:flex;align-items:center;gap:clamp(8px,1.4vw,22px);width:100%;min-width:0}
+.cinema-wordmark{display:flex;align-items:center;gap:7px;white-space:nowrap;color:#f8fff9;font-size:clamp(19px,2vw,29px);font-weight:850;letter-spacing:-1px;padding-right:18px;border-right:1px solid #48796a}
+.cinema-headernav nav{display:flex;align-items:center;gap:3px;overflow-x:auto;scrollbar-width:none}
+.cinema-headernav nav button{border:1px solid transparent;background:transparent;color:#deefe6;border-radius:18px;font-size:12px;font-weight:700;white-space:nowrap;padding:10px 12px}
+.cinema-headernav nav button.selected,.cinema-headernav nav button:hover{border-color:#65edc0;color:#fff;background:#0b594c;box-shadow:0 0 14px #43e8b66e}
+.cinema-cockpit{color:#effcf7;font-family:'Outfit','DM Sans',sans-serif}
+.cinema-welcome{position:relative;border-radius:0 0 24px 24px;min-height:260px;overflow:hidden;padding:34px clamp(22px,3vw,48px);display:flex;align-items:center;margin:0 0 21px;background:linear-gradient(90deg,#041f25 4%,#062b2988 54%,#05251b08 100%),url('/agrinova-assets/rwanda-landscape.webp') center 55%/cover no-repeat}
+.cinema-welcome:after{content:'';height:2px;position:absolute;bottom:0;left:6%;right:6%;background:linear-gradient(90deg,transparent,#40f2b7,transparent);box-shadow:0 0 18px #20eaa885}
+.cinema-welcome-copy{position:relative;z-index:1;max-width:680px}
+.cinema-kicker{font-size:10px;letter-spacing:2px;color:#5cf3be;font-weight:850;margin-bottom:12px}
+.cinema-welcome h2{font-size:clamp(31px,3vw,57px);font-weight:800;line-height:1.04;letter-spacing:-1.5px;margin:0 0 11px;color:#fff}
+.cinema-welcome h2 em{color:#f5c66e;font-style:normal}
+.cinema-welcome p{color:#dcf4e8;line-height:1.55;font-size:clamp(14px,1.2vw,20px);margin:0}
+.cinema-welcome-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:19px}
+.cinema-welcome-actions button{background:#0d6251cc;color:#f5fff8;border:1px solid #6beac3;border-radius:13px;padding:10px 17px;font-size:12px;font-weight:800;cursor:pointer}
+.cinema-welcome-actions button:hover{background:#128b70}
+.cinema-picture-credit{position:absolute;right:17px;bottom:9px;font-size:10px;color:#cae5d7;z-index:1;text-shadow:0 1px 3px #000}
+.cinema-panel-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.cinema-panel{grid-column:span 4;min-width:0;min-height:215px;position:relative;padding:21px 22px 47px;border-radius:21px;border:1px solid #3cc7a4;background:linear-gradient(146deg,#064541ed,#05292def);box-shadow:inset 0 1px #8bebc427,0 11px 23px #0008;overflow:hidden;transition:transform .2s,border-color .2s}
+.cinema-panel:hover{transform:translateY(-2px);border-color:#82ffe1;box-shadow:0 0 19px #1de8ac35,0 12px 25px #0007}
+.cinema-panel:after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:2px;background:linear-gradient(90deg,transparent,#5af3be,transparent);box-shadow:0 0 14px #2dfcbd}
+.cinema-panel h3{display:flex;align-items:center;gap:10px;font-size:clamp(18px,1.7vw,26px);font-weight:800;color:#fff;letter-spacing:-.5px;margin:0 0 15px}
+.cinema-panel h3 span{font-size:27px;color:#f4c968}
+.cinema-panel p{color:#d1e8de;font-size:13px;line-height:1.5;margin:7px 0}
+.cinema-panel>button,.cinema-season-head button{background:#0b3b38;color:#a3ffdf;border:1px solid #277d69;border-radius:10px;padding:7px 11px;cursor:pointer;font-size:12px;font-weight:750}
+.cinema-panel>button{position:absolute;bottom:14px;left:20px}
+.cinema-panel>button:hover,.cinema-season-head button:hover{background:#0a725c}
+.cinema-mainfact{font-size:24px;line-height:1.2;font-weight:800;color:#f6cb72;overflow-wrap:anywhere}
+.cinema-notice{font-size:12px;line-height:1.55;border:1px dashed #4e8d79;border-radius:13px;background:#082c2e;padding:14px;color:#c2ddcf}
+.cinema-rotation{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0 15px;background:#092d2e;border:1px solid #338f78;border-radius:14px;padding:12px}
+.cinema-rotation span{font-weight:800;font-size:12px;color:#eaffef;overflow-wrap:anywhere}.cinema-rotation b{color:#f6c779}.cinema-gold{color:#f6c779}
+.cinema-ai-placeholder{border:1px solid #478477;border-radius:12px;background:#092e2e;padding:10px;color:#c2dfd0;font-size:12px}
+.cinema-climate-facts{display:flex;justify-content:space-between;gap:12px}.cinema-climate-facts span{display:flex;flex-direction:column}.cinema-climate-facts b{font-size:21px;color:#f2cd7b}.cinema-climate-facts small{color:#b8d3c9;font-size:11px}
+.cinema-bars{display:flex;gap:6px;align-items:end;height:67px;margin:15px 0 8px}.cinema-bars i{flex:1;min-width:5px;background:linear-gradient(#7affe0,#13a487);border-radius:5px 5px 1px 1px;box-shadow:0 0 6px #3de8af77}
+.cinema-market-line{display:flex;justify-content:space-between;padding:10px 5px;gap:8px;border-bottom:1px solid #2f7169;font-size:12px}.cinema-market-line b{color:#b9f3c5;white-space:nowrap}
+.cinema-map-view{height:95px;border:1px solid #37947d;border-radius:15px;background:linear-gradient(#022e3270,#07352d55),url('/agrinova-assets/rwanda-landscape.webp') center/cover;display:flex;align-items:end;padding:10px;color:#fff;font-size:12px;font-weight:800}
+.cinema-map-view span{background:#06312ae8;padding:6px 10px;border-radius:11px}
+.cinema-community{grid-column:span 4;min-height:250px}
+.cinema-postline{border:1px solid #1f6358;background:#062d2d;padding:9px 12px;border-radius:10px;margin-bottom:7px;display:flex;flex-direction:column;gap:3px}.cinema-postline b{color:#e2fff1;font-size:12px}.cinema-postline small{color:#b2d4c5;font-size:11px}
+.cinema-season{grid-column:span 8;min-height:250px}.cinema-season-head{display:flex;align-items:center;gap:12px;justify-content:space-between}.cinema-season-head h3{margin-bottom:2px}
+.cinema-calendar{background:#08282b;border:1px solid #2d6f62;border-radius:12px;overflow:auto;margin-top:13px}.cinema-calendar-row{display:grid;grid-template-columns:minmax(120px,1.2fr) repeat(6,minmax(43px,1fr));border-bottom:1px solid #255b54;align-items:center;min-width:440px}.cinema-calendar-row>*{padding:7px 9px;border-right:1px solid #1d5a55;text-align:center;font-size:11px}.cinema-calendar-row strong{text-align:left;color:#edfff6;font-weight:650}.cinema-calendar-row span i{font-style:normal;color:#f5ca67;text-shadow:0 0 9px #f7d86b}.cinema-calendar-months{background:#074238}.cinema-calendar-empty{font-size:12px;color:#b6d6ca;padding:22px}
+.cinema-footer-note{font-size:11px;color:#a1c4b8;line-height:1.5;margin:17px 8px}
+@media(max-width:1250px){.cinema-headernav nav button{padding:9px 8px;font-size:11px}.cinema-wordmark{font-size:20px}.cinema-panel{padding:16px 16px 46px}.cinema-panel>button{left:15px}.cinema-panel h3{font-size:18px}}
+@media(max-width:1050px){.cinema-panel{grid-column:span 6}.cinema-community{grid-column:span 6}.cinema-season{grid-column:span 12}.cinema-headernav nav{max-width:48vw}}
+@media(max-width:720px){body.agrinova-dashboard .topbar{height:auto;min-height:65px;flex-wrap:wrap;padding:9px 13px}.cinema-headernav{width:100%}.cinema-headernav nav{max-width:100%;flex:1}.cinema-wordmark{font-size:17px;padding-right:8px}body.agrinova-dashboard .topbar .topright{margin-left:auto;max-width:100%;overflow:auto}.cinema-panel{grid-column:span 12;min-height:190px}.cinema-community,.cinema-season{grid-column:span 12}.cinema-welcome{padding:28px 19px;min-height:260px}.cinema-welcome h2{font-size:33px}}
+@media(prefers-reduced-motion:reduce){.cinema-panel{transition:none}}
+
+body.agrinova-dashboard .topbar .mobilemenu{display:none}
+body.agrinova-dashboard .main .footer{margin-top:12px}
