@@ -748,3 +748,108 @@ a,
   color: #dbf4e8 !important;
 }
 
+
+/* AGRINOVA — IMPROVED READABILITY */
+
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Navigation */
+.nav,
+.cinema-headernav nav button {
+  font-size: 15px;
+}
+
+/* Page titles */
+.page-title {
+  font-size: clamp(30px, 3vw, 44px);
+}
+
+.main h2 {
+  font-size: clamp(24px, 2.4vw, 34px);
+}
+
+.main h3,
+.card h3 {
+  font-size: 21px;
+}
+
+/* Descriptions */
+.subtitle,
+.main p,
+.muted,
+.card p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* Dashboard cards */
+.cinema-panel h3,
+.cinema-tile h3 {
+  font-size: 21px;
+}
+
+.cinema-panel p,
+.cinema-tile p {
+  font-size: 16px;
+}
+
+/* Forms */
+.label,
+.main label {
+  font-size: 15px;
+}
+
+.input,
+.main input,
+.main select,
+.main textarea {
+  font-size: 16px;
+}
+
+/* Buttons */
+.btn,
+.main button {
+  font-size: 15px;
+}
+
+/* Small text */
+.eyebrow,
+.chip,
+.mini-summary span,
+.metric .top,
+.metric .note {
+  font-size: 13px;
+}
+
+/* AI assistant and chat */
+.chat-message .bubble,
+.nova-chat-bubble,
+.nova-chat-bubble p {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  body {
+    font-size: 16px;
+  }
+
+  .page-title {
+    font-size: 30px;
+  }
+
+  .main h3,
+  .card h3 {
+    font-size: 19px;
+  }
+
+  .btn,
+  .main button {
+    font-size: 15px;
+  }
+}
+
