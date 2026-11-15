@@ -147,3 +147,432 @@ body.agrinova-dashboard .topbar .connection-pill{max-width:175px;overflow:hidden
 
 body.agrinova-dashboard .topbar .mobilemenu{display:none}
 body.agrinova-dashboard .main .footer{margin-top:12px}
+
+/* ==============================================
+   AGRINOVA — UNIFIED CINEMATIC INTERFACE
+   Applies to every workspace, not only Dashboard
+   ============================================== */
+
+:root[data-theme="dark"],
+:root[data-theme="mixed"] {
+  --page-bg: #04191e;
+  --panel-bg: #092b30;
+  --top-bg: #061e25;
+  --main-text: #f3fff9;
+  --sub-text: #b6d5ca;
+  --line-color: #278b79;
+  --input-bg: #092a30;
+  --accent: #45eac0;
+  --nova-gold: #f5ce75;
+}
+
+body {
+  background: #04191e;
+}
+
+.shell,
+.main {
+  background:
+    radial-gradient(ellipse at 90% 3%,
+      rgba(10, 133, 110, .18), transparent 40%),
+    linear-gradient(145deg, #04191e, #082b2a);
+}
+
+.main {
+  max-width: 1800px;
+  padding: 26px 32px 85px;
+  color: var(--main-text);
+}
+
+/* NAVIGATION */
+
+.sidebar {
+  background: linear-gradient(180deg,
+    #031820, #07352f 65%, #031820);
+  border-right: 1px solid #257d6e;
+}
+
+.sidebar .nav {
+  color: #c9e7dc;
+  border: 1px solid transparent;
+  transition: all .22s ease;
+}
+
+.sidebar .nav:hover,
+.sidebar .nav.active {
+  background: linear-gradient(120deg, #0b5149, #087962);
+  border-color: #3bdcaa;
+  color: white;
+  box-shadow: 0 0 19px rgba(28, 237, 170, .19);
+}
+
+.topbar {
+  background: rgba(5, 29, 35, .97);
+  border-bottom: 1px solid #267867;
+  box-shadow: 0 5px 25px rgba(0,0,0,.15);
+}
+
+/* TITLES */
+
+.page-title,
+.section-head h3,
+.main h2,
+.main h3 {
+  color: #f4fff9;
+  letter-spacing: -.4px;
+}
+
+.eyebrow {
+  color: #58e9b7;
+}
+
+.subtitle,
+.muted {
+  color: #b7d4ca;
+}
+
+/* ALL FEATURE PANELS */
+
+.card,
+.market-live-card,
+.market-stats > div,
+.market-empty,
+.farm-record,
+.form-panel,
+.nova-chat-shell {
+  background:
+    linear-gradient(145deg,
+      rgba(12,65,58,.96),
+      rgba(5,36,44,.97));
+  border: 1px solid rgba(57,228,177,.45);
+  border-radius: 20px;
+  color: #f3fff9;
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(157,255,216,.09);
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.card:hover,
+.market-live-card:hover,
+.farm-record:hover {
+  border-color: #52edb7;
+  box-shadow:
+    0 15px 38px rgba(0,0,0,.28),
+    0 0 20px rgba(37,239,176,.12);
+}
+
+.card h3,
+.market-live-head strong,
+.metric .num,
+.label {
+  color: #f7fff9;
+}
+
+.metric .num {
+  color: #f5ce75;
+}
+
+.metric .top,
+.metric .note {
+  color: #a8dccb;
+}
+
+/* BUTTONS */
+
+.btn,
+button[type="submit"] {
+  border-radius: 12px;
+  transition: all .2s ease;
+}
+
+.btn {
+  background: linear-gradient(120deg,#08785f,#0ca47b);
+  color: white;
+  border: 1px solid #2acb9c;
+  box-shadow: 0 3px 15px rgba(2,126,91,.2);
+}
+
+.btn:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+}
+
+.btn.secondary,
+.btn.outline {
+  background: #0a3c3b;
+  color: #e5fff3;
+  border: 1px solid #327e6b;
+}
+
+/* INPUTS AND SELECTORS */
+
+.input,
+.main input,
+.main select,
+.main textarea,
+.nova-chat-compose textarea {
+  background: #092c32;
+  border: 1px solid #367d70;
+  color: #f0fff8;
+  border-radius: 12px;
+}
+
+.input:focus,
+.main input:focus,
+.main select:focus,
+.main textarea:focus {
+  border-color: #4aefb7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(45,237,174,.15);
+}
+
+.main input::placeholder,
+.main textarea::placeholder {
+  color: #a6c9bf;
+}
+
+.main select option {
+  color: #173e35;
+  background: #effff5;
+}
+
+/* CHARTS, DATA AND SMALL COMPONENTS */
+
+.list-line,
+.postactions {
+  border-color: rgba(87,209,172,.22);
+  color: #cae8db;
+}
+
+.notice {
+  background: #103a36;
+  border: 1px solid #458c73;
+  color: #dcf8e9;
+}
+
+.notice.warn {
+  background: #4a381e;
+  border-color: #a78547;
+  color: #ffe4aa;
+}
+
+.chip {
+  background: #124d42;
+  color: #aaffdc;
+}
+
+.section-head {
+  border-bottom: 1px solid rgba(57,198,155,.18);
+  padding-bottom: 10px;
+}
+
+a,
+.textbtn {
+  color: #65eec0;
+}
+
+/* AGRICULTURAL HERO */
+
+.hero {
+  border: 1px solid #2eae89;
+  border-radius: 23px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.25);
+}
+
+.hero h2 {
+  color: white;
+}
+
+.hero p {
+  color: #e6fff2;
+}
+
+/* FARMER COMMUNITY AND CHAT */
+
+.post,
+.nova-chat-bubble {
+  border-radius: 16px;
+}
+
+.nova-chat-thread {
+  background: #061f26;
+}
+
+.nova-chat-bubble {
+  background: #0b403c;
+  color: #ecfff5;
+  border: 1px solid #317d69;
+}
+
+.nova-chat-bubble.mine {
+  background: #087a60;
+  border-color: #2ad09c;
+}
+
+.chatbox {
+  border-radius: 18px;
+  overflow-y: auto;
+}
+
+.chat-message .bubble {
+  border-radius: 17px;
+}
+
+/* SUBTLE NEON ACCENTS */
+
+.card,
+.cinema-tile {
+  position: relative;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(
+    90deg, transparent,
+    rgba(62,255,180,.55),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* RESPONSIVE PHONE AND TABLET LAYOUT */
+
+@media (max-width: 1000px) {
+  .main {
+    padding: 20px 16px 65px;
+  }
+
+  .grid.four {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .cinema-dashboard-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .cinema-tile.wide4,
+  .cinema-tile.wide6,
+  .cinema-tile.wide8 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .main {
+    padding: 16px 12px 50px;
+  }
+
+  .topbar {
+    padding: 10px;
+    height: auto;
+    min-height: 64px;
+    flex-wrap: wrap;
+  }
+
+  .topright {
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .grid.two,
+  .grid.three,
+  .grid.four,
+  .cinema-dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .card,
+  .market-live-card,
+  .farm-record {
+    border-radius: 17px;
+    padding: 17px;
+  }
+
+  .cinema-tile,
+  .cinema-tile.wide4,
+  .cinema-tile.wide6,
+  .cinema-tile.wide8 {
+    grid-column: 1 / -1;
+  }
+
+  .page-title {
+    font-size: 27px;
+  }
+
+  .hero,
+  .cinema-hero {
+    min-height: 250px;
+    padding: 20px;
+  }
+
+  .cinema-hero h1 {
+    font-size: 34px;
+  }
+
+  .nova-chat-thread {
+    height: 280px;
+  }
+
+  .main button,
+  .main input,
+  .main select {
+    min-height: 42px;
+  }
+}
+
+/* LIGHT MODE STILL WORKS */
+
+:root[data-theme="light"] .main,
+:root[data-theme="light"] .shell {
+  background: #eaf5f0;
+  color: #153d34;
+}
+
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .market-live-card,
+:root[data-theme="light"] .farm-record,
+:root[data-theme="light"] .form-panel {
+  background: #ffffff;
+  color: #153d34;
+  border-color: #afd8c5;
+}
+
+:root[data-theme="light"] .main h2,
+:root[data-theme="light"] .main h3,
+:root[data-theme="light"] .main .page-title,
+:root[data-theme="light"] .main .label,
+:root[data-theme="light"] .metric .num {
+  color: #153d34;
+}
+
+:root[data-theme="light"] .input,
+:root[data-theme="light"] .main input,
+:root[data-theme="light"] .main select,
+:root[data-theme="light"] .main textarea {
+  background: #fff;
+  color: #153d34;
+}
+
+:root[data-theme="light"] .subtitle,
+:root[data-theme="light"] .muted {
+  color: #48695e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .btn,
+  .nav {
+    transition: none !important;
+  }
+}
+
