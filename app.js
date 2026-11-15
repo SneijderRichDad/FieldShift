@@ -436,7 +436,7 @@ async function sendMarketInquiry(listingId){
 }
 
 // AgriNova cockpit dashboard V2. Existing Supabase data and routes remain authoritative.
-function cinematicTopNav(){return `<div class="cinema-headernav"><span class="cinema-wordmark" role="img" aria-label="AgriNova">🌱 <b>AgriNova</b></span><nav aria-label="Primary app navigation"><button data-page="dashboard" class="${state.page==='dashboard'?'selected':''}">⌂ Dashboard</button><button data-page="farms">▦ My Farms</button><button data-page="rotation">↻ Planner</button><button data-page="advisor">✧ Advisor</button><button data-page="climate">☁ Climate</button><button data-page="market">▤ Marketplace</button><button data-page="community">♧ Community</button></nav></div>`}
+function cinematicTopNav(){return `<div class="cinema-headernav"><span class="cinema-wordmark" role="img" aria-label="AgriNova">🌱 <b>AgriNova</b></span><nav aria-label="Primary app navigation"><button data-page="dashboard" class="${state.page==='dashboard'?'selected':''}">⌂ Dashboard</button><button data-page="farms">▦ My Farms</button><button data-page="rotation">↻ Planner</button><button data-page="advisor">✧ Advisor</button><button data-page="climate">☁ Climate</button><button data-page="market">▤ Marketplace</button><button data-page="community">♧ Community</button><button data-page="about" class="${state.page==='about'?'selected':''}">✦ About Us</button></nav></div>`}
 function cinematicOverview(){
  const authed=Boolean(state.auth&&state.supabase);
  const name=String(state.auth?.user_metadata?.full_name||state.auth?.user_metadata?.name||state.profile?.name||'Farmer').split(' ')[0];
