@@ -940,3 +940,95 @@ body {
 @media(max-width:1100px){.novax-about-columns{grid-template-columns:1fr}.novax-about-heading{align-items:start;flex-direction:column}}
 @media(max-width:650px){.novax-team-grid,.novax-about-credits{grid-template-columns:1fr}.novax-about-hero{border-radius:14px}.novax-about-section{padding:17px}.novax-team-card{padding:12px}.novax-team-card strong{font-size:15px}}
 
+
+/* AGRINOVA — UNIFIED COMMUNITY */
+
+.agrinova-community-tabs {
+  padding: 26px;
+  margin: 0 0 24px;
+  border: 1px solid #2aa889;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 85% 10%,
+      rgba(20,184,139,.18),transparent 42%),
+    linear-gradient(135deg,#072a30,#0b413b);
+}
+
+.community-tabs-heading span {
+  color: #55edba;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.community-tabs-heading h2 {
+  color: white;
+  margin: 8px 0;
+  font-size: clamp(24px,3vw,35px);
+}
+
+.community-tabs-heading p {
+  color: #bde5d4;
+  font-size: 15px;
+  margin-bottom: 22px;
+}
+
+.community-tabs-nav {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 14px;
+}
+
+.community-tab {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #328872;
+  border-radius: 17px;
+  background: #092e32;
+  color: #eafff5;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.community-tab:hover,
+.community-tab.active {
+  border-color: #54f5b7;
+  background: #0c5548;
+  box-shadow: 0 0 20px #17b98c35;
+}
+
+.community-tab-icon {
+  font-size: 27px;
+  color: #f4cf76;
+}
+
+.community-tab strong {
+  display: block;
+  font-size: 17px;
+  color: white;
+}
+
+.community-tab small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #b7d8c9;
+}
+
+@media(max-width:800px) {
+  .community-tabs-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .agrinova-community-tabs {
+    padding: 17px;
+  }
+
+  .community-tab {
+    padding: 15px;
+  }
+}
+

@@ -138,7 +138,7 @@ function agriSetAccountIdentity(user) {
 
 const primaryNavIds=new Set(['dashboard','farms','community','rotation','climate','explorer','advisor','market']);
 const navItems=[['dashboard','⌂','Dashboard'],['farms','▦','My Farms'],['rotation','↻','Nova Planner'],['advisor','✧','Nova AI'],['climate','☁','Nova Climate'],['community','♧','Nova Connect'],['messages','✉','Nova Chat'],['market','▤','Nova Market'],['explorer','⌖','Farm Map'],['stories','★','Success Stories'],['research','◎','NASA Research'],['simulation','▥','Climate Simulator'],['greenhouse','⌂','Greenhouse Planner'],['scanner','◉','Crop Photo Review'],['profile','♙','My Profile'],['account','♙','Private Account'],['notifications','♧','Notifications'],['admin','⚙','Moderation'],['help','?','Help & Security'],['about','♡','About AgriNova']];
-const titleFor=page=>({farms:'Manage your fields & seasons',dashboard:'Your farming world, connected',community:'Grow knowledge together',rotation:'Plan a healthier next season',climate:'Understand your climate',explorer:'Explore farming locations',research:'Evidence from NASA research',market:'Markets closer to your farm',advisor:'Your agriculture companion',profile:'Your farming profile',simulation:'What if the weather changes?',greenhouse:'Plan your greenhouse seasons',scanner:'Review a crop photo',stories:'Real farmers. Shared progress.',admin:'Review farmer submissions',help:'Help, privacy and security',about:'Built for Rwanda’s farmers',account:'My private farming account',notifications:'My notifications'})[page];
+const titleFor=page=>({farms:'Manage your fields & seasons',dashboard:'Your farming world, connected',community:'AgriNova Community',messages:'Nova Chat',rotation:'Plan a healthier next season',climate:'Understand your climate',explorer:'Explore farming locations',research:'Evidence from NASA research',market:'Markets closer to your farm',advisor:'Your agriculture companion',profile:'Your farming profile',simulation:'What if the weather changes?',greenhouse:'Plan your greenhouse seasons',scanner:'Review a crop photo',stories:'Real farmers. Shared progress.',admin:'Review farmer submissions',help:'Help, privacy and security',about:'Built for Rwanda’s farmers',account:'My private farming account',notifications:'My notifications'})[page];
 function stats(){return `<div class="grid four" style="margin-top:19px"><div class="card metric"><div class="top">🌿 Your current crops <span>↗</span></div><div class="num">${escapeHTML(state.profile.crops.split(',').length)}</div><div class="note">Registered crop types</div></div><div class="card metric"><div class="top">♧ Community posts</div><div class="num">${state.posts.length}</div><div class="note">${(state.firestore||state.supabase)&&state.auth?'Cloud discussions connected':'Browser demonstration'}</div></div><div class="card metric"><div class="top">↻ Rotation options</div><div class="num">3</div><div class="note">Compare alternatives</div></div><div class="card metric"><div class="top">▤ Market listings</div><div class="num">${state.marketCloud.length}</div><div class="note">Registered farmers only</div></div></div>`}
 function contextBanner(){
   const notes = {
@@ -286,7 +286,47 @@ function agriTranslatePage(){
  }
 }
 
-function layout(content){$('#app').innerHTML=`<div class="layout"><aside class="sidebar" id="sidebar"><div class="logo"><span class="logo-mark">🌱</span><span>AgriNova<small>AI · ${escapeHTML(state.country)}</small></span></div><div class="nav-label">WORKSPACE</div>${navItems.filter(([id])=>id!=='admin'||state.storyAdmin).map(([id,icon,label],index)=>`${index===8?'<div class="nav-label">MORE TO EXPLORE</div>':''}<button class="nav ${state.page===id?'active':''}" data-page="${id}"><span class="icon">${icon}</span>${label}</button>`).join('')}<div class="sidebar-bottom"><b>🌱 Better harvests, together.</b><p>Good farming decisions grow stronger when local experience meets Earth science.</p><button data-page="community">Explore community →</button></div></aside><div class="shell"><header class="topbar"><div style="display:flex;gap:12px;align-items:center"><button class="btn secondary small mobilemenu" id="mobileMenu">☰</button>${cinematicTopNav()}</div><div class="topright">
+
+function agriCommunityTabs() {
+  const tabs = [
+    ['community', '♧', 'Nova Connect',
+     'Farmer discussions'],
+    ['messages', '✉', 'Nova Chat',
+     'Private messages'],
+    ['stories', '★', 'Success Stories',
+     'Farmer experiences']
+  ];
+
+  return `<section class="agrinova-community-tabs"
+    aria-label="Community features">
+    <div class="community-tabs-heading">
+      <span>AGRINOVA COMMUNITY</span>
+      <h2>Grow together. Share knowledge.</h2>
+      <p>Connect, communicate and learn
+      from real farmers.</p>
+    </div>
+    <nav class="community-tabs-nav"
+      aria-label="Community sections">
+      ${tabs.map(([id,icon,label,description]) => `
+        <button type="button"
+          data-page="${id}"
+          class="community-tab
+          ${state.page===id?'active':''}"
+          ${state.page===id?'aria-current="page"':''}>
+          <span class="community-tab-icon">${icon}</span>
+          <span>
+            <strong>${label}</strong>
+            <small>${description}</small>
+          </span>
+        </button>
+      `).join('')}
+    </nav>
+  </section>`;
+}
+
+function layout(content){$('#app').innerHTML=`<div class="layout"><aside class="sidebar" id="sidebar"><div class="logo"><span class="logo-mark">🌱</span><span>AgriNova<small>AI · ${escapeHTML(state.country)}</small></span></div><div class="nav-label">WORKSPACE</div>${navItems.filter(([id])=>
+  !['messages','stories'].includes(id) &&
+  (id!=='admin'||state.storyAdmin)).map(([id,icon,label],index)=>`${index===8?'<div class="nav-label">MORE TO EXPLORE</div>':''}<button class="nav ${state.page===id?'active':''}" data-page="${id}"><span class="icon">${icon}</span>${label}</button>`).join('')}<div class="sidebar-bottom"><b>🌱 Better harvests, together.</b><p>Good farming decisions grow stronger when local experience meets Earth science.</p><button data-page="community">Explore community →</button></div></aside><div class="shell"><header class="topbar"><div style="display:flex;gap:12px;align-items:center"><button class="btn secondary small mobilemenu" id="mobileMenu">☰</button>${cinematicTopNav()}</div><div class="topright">
 <button type="button"
   class="nova-notification-bell"
   data-page="notifications"
@@ -313,7 +353,9 @@ function layout(content){$('#app').innerHTML=`<div class="layout"><aside class="
  aria-label="Change application appearance">
 ${currentTheme === 'dark' ? '🌙 Dark' :
   currentTheme === 'mixed' ? '🌗 Mixed' : '☀️ Light'}
-</button><label class="country-label" for="countrySelect">Location <select id="countrySelect" aria-label="Choose country" class="country-select">${supportedCountries.map(country=>`<option value="${escapeHTML(country)}" ${country===state.country?'selected':''}>${country}</option>`).join('')}</select></label><select class="btn secondary small" id="languageSelect" aria-label="Language"><option value="en" ${state.lang==='en'?'selected':''}>English</option><option value="rw" ${state.lang==='rw'?'selected':''}>Kinyarwanda</option><option value="fr" ${state.lang==='fr'?'selected':''}>Français</option></select><button class="connection-pill" data-page="profile" title="View account and Supabase status"><span class="connection-dot ${state.auth?'online':state.authReady?'ready':'offline'}"></span>${state.auth?escapeHTML(state.auth.user_metadata?.full_name||state.auth.user_metadata?.name||state.profile.name||'Farmer'):state.authReady?'Sign in to sync':'Offline preview'}</button><button data-page="profile" class="avatar" title="Manage your farmer profile" aria-label="Open farmer profile">${escapeHTML((state.auth?(state.auth.user_metadata?.full_name||state.auth.user_metadata?.name||state.profile.name):state.profile.name).charAt(0))}</button></div></header><main class="main"><div class="eyebrow">AgriNova Intelligence / ${escapeHTML(state.page)}</div><h1 class="page-title">${titleFor(state.page)}</h1><p class="subtitle">${state.page==='community'?'Connect with farmers in your sector. Share what works, ask questions, and plan together.':state.lang==='rw'?'Ubufatanye mu buhinzi mu Rwanda, amakuru y’ikirere n’ihinduranya ry’ibihingwa.':'Agriculture insights, local markets and farmer community — start with your location.'}</p>${content}<div class="footer">AgriNova · Live farmer listings and buyer requests · NASA data where indicated · Farmer judgment and local agronomists remain essential · No emergency warning service</div></main></div></div>`;agriTranslatePage();}
+</button><label class="country-label" for="countrySelect">Location <select id="countrySelect" aria-label="Choose country" class="country-select">${supportedCountries.map(country=>`<option value="${escapeHTML(country)}" ${country===state.country?'selected':''}>${country}</option>`).join('')}</select></label><select class="btn secondary small" id="languageSelect" aria-label="Language"><option value="en" ${state.lang==='en'?'selected':''}>English</option><option value="rw" ${state.lang==='rw'?'selected':''}>Kinyarwanda</option><option value="fr" ${state.lang==='fr'?'selected':''}>Français</option></select><button class="connection-pill" data-page="profile" title="View account and Supabase status"><span class="connection-dot ${state.auth?'online':state.authReady?'ready':'offline'}"></span>${state.auth?escapeHTML(state.auth.user_metadata?.full_name||state.auth.user_metadata?.name||state.profile.name||'Farmer'):state.authReady?'Sign in to sync':'Offline preview'}</button><button data-page="profile" class="avatar" title="Manage your farmer profile" aria-label="Open farmer profile">${escapeHTML((state.auth?(state.auth.user_metadata?.full_name||state.auth.user_metadata?.name||state.profile.name):state.profile.name).charAt(0))}</button></div></header><main class="main"><div class="eyebrow">AgriNova Intelligence / ${escapeHTML(state.page)}</div><h1 class="page-title">${titleFor(state.page)}</h1><p class="subtitle">${state.page==='community'?'Connect with farmers in your sector. Share what works, ask questions, and plan together.':state.lang==='rw'?'Ubufatanye mu buhinzi mu Rwanda, amakuru y’ikirere n’ihinduranya ry’ibihingwa.':'Agriculture insights, local markets and farmer community — start with your location.'}</p>${['community','messages','stories']
+  .includes(state.page)?agriCommunityTabs():''}
+${content}<div class="footer">AgriNova · Live farmer listings and buyer requests · NASA data where indicated · Farmer judgment and local agronomists remain essential · No emergency warning service</div></main></div></div>`;agriTranslatePage();}
 function hero(){return `<div class="hero">
 <div class="hero-slides" aria-hidden="true">
   <span class="hero-slide slide-one"></span>
@@ -436,7 +478,10 @@ async function sendMarketInquiry(listingId){
 }
 
 // AgriNova cockpit dashboard V2. Existing Supabase data and routes remain authoritative.
-function cinematicTopNav(){return `<div class="cinema-headernav"><span class="cinema-wordmark" role="img" aria-label="AgriNova">🌱 <b>AgriNova</b></span><nav aria-label="Primary app navigation"><button data-page="dashboard" class="${state.page==='dashboard'?'selected':''}">⌂ Dashboard</button><button data-page="farms">▦ My Farms</button><button data-page="rotation">↻ Planner</button><button data-page="advisor">✧ Advisor</button><button data-page="climate">☁ Climate</button><button data-page="market">▤ Marketplace</button><button data-page="community">♧ Community</button><button data-page="about" class="${state.page==='about'?'selected':''}">✦ About Us</button></nav></div>`}
+function cinematicTopNav(){return `<div class="cinema-headernav"><span class="cinema-wordmark" role="img" aria-label="AgriNova">🌱 <b>AgriNova</b></span><nav aria-label="Primary app navigation"><button data-page="dashboard" class="${state.page==='dashboard'?'selected':''}">⌂ Dashboard</button><button data-page="farms">▦ My Farms</button><button data-page="rotation">↻ Planner</button><button data-page="advisor">✧ Advisor</button><button data-page="climate">☁ Climate</button><button data-page="market">▤ Marketplace</button><button data-page="community"
+ class="${['community','messages','stories']
+ .includes(state.page)?'selected':''}">
+ ♧ Community</button><button data-page="about" class="${state.page==='about'?'selected':''}">✦ About Us</button></nav></div>`}
 function cinematicOverview(){
  const authed=Boolean(state.auth&&state.supabase);
  const name=String(state.auth?.user_metadata?.full_name||state.auth?.user_metadata?.name||state.profile?.name||'Farmer').split(' ')[0];
