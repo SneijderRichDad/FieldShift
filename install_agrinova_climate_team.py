@@ -42,9 +42,9 @@ block=block.replace('state.climateError=\'District climate data is currently con
 block=block.replace("state.climateStatus='loading';climate();", "state.climateStatus='loading';render();")
 block=block.replace("districts[state.profile.district]||districts.Musanze", "districts[state.page==='simulation'?(state.simDistrict||state.profile.district):state.profile.district]||districts.Musanze")
 # End-of-load render; preserve current page.
-if not block.endswith('climate()}'):
+if not block.rstrip().endswith('climate()}'):
     raise SystemExit('The NASA loader end differs from expected. No changes saved.')
-block=block[:-len('climate()}')]+'render()}'
+block=block.rstrip(); block=block[:-len('climate()}')]+'render()}'
 s=s[:a]+block+s[b:]
 
 # Add credits to the existing About page (roles are proposed responsibility areas).
