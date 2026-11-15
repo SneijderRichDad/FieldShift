@@ -17,7 +17,7 @@ async function advisor(request,env){
  if(typeof input.question!=='string'||input.question.trim().length<2||input.question.length>500)return json({error:'Question must have 2-500 characters'},400);
  const system='You are a cautious Rwanda-focused agricultural learning assistant. Explain crop-rotation tradeoffs; do not invent NASA readings, buyer prices, crop diagnoses, verified yields or emergency warnings. Distinguish observation from prediction, state uncertainty and advise consultation with local agronomists.';
  const prompt=`District: ${safeText(input.location,70)}. Sector: ${safeText(input.sector,70)}. Crops: ${safeText(input.crops,120)}. Question: ${input.question}`;
- const n=await fetch('https://integrate.api.nvidia.com/v1/chat/completions',{method:'POST',headers:{Authorization:`Bearer ${env.NVIDIA_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:env.NVIDIA_MODEL,messages:[{role:'system',content:system},{role:'user',content:prompt}],temperature:0.2,max_tokens:500}),signal:timeout(24000)});
+ const n=await fetch('https://integrate.api.nvidia.com/v1/chat/completions',{method:'POST',headers:{Authorization:`Bearer ${env.NVIDIA_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:env.NVIDIA_MODEL,messages:[{role:'system',content:system},{role:'user',content:prompt}],temperature:0.6,max_tokens:1200,chat_template_kwargs:{enable_thinking:false}}),signal:timeout(24000)});
  if(!n.ok)return json({error:'NVIDIA inference temporarily unavailable'},502);
  const value=await n.json(),answer=value.choices?.[0]?.message?.content;
  return typeof answer==='string'?json({answer,source:'NVIDIA NIM; AI-generated, verify with a local agricultural expert'}):json({error:'No NVIDIA answer returned'},502);
