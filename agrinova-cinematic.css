@@ -576,3 +576,175 @@ a,
   }
 }
 
+
+/* ===== AGRINOVA: UNIFIED FEATURE LAYOUT ===== */
+
+/* Remove the old sidebar on every page */
+.layout > .sidebar {
+  display: none !important;
+}
+
+.layout > .shell {
+  width: 100%;
+  min-width: 0;
+}
+
+.main {
+  max-width: 1700px;
+  margin: auto;
+  padding: 25px 30px 70px;
+}
+
+/* Horizontal cinematic navigation */
+.cinema-headernav {
+  max-width: 100%;
+}
+
+.cinema-headernav nav {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.cinema-headernav nav button {
+  flex-shrink: 0;
+}
+
+/* Remove the unnecessary mobile sidebar button */
+#mobileMenu {
+  display: none !important;
+}
+
+/* Fix My Farms banner */
+.farm-intro {
+  background:
+    linear-gradient(110deg,
+      rgba(5,35,39,.97),
+      rgba(8,85,68,.94)),
+    url('/agrinova-assets/rwanda-landscape.webp')
+    center/cover;
+  border: 1px solid #39cba0;
+  border-radius: 22px;
+  box-shadow: 0 12px 30px #0004;
+}
+
+.farm-intro h2 {
+  color: #fff !important;
+  font-size: clamp(23px,2.6vw,36px);
+}
+
+.farm-intro p {
+  color: #c5f3dc !important;
+}
+
+.farm-intro-pill {
+  color: #59f1b7 !important;
+}
+
+/* Replace white statistics cards */
+.mini-summary > div {
+  background: linear-gradient(
+    145deg,#0b4c41,#062b32
+  ) !important;
+  border: 1px solid #2bb68c;
+  border-radius: 17px;
+  box-shadow: 0 0 20px #13a57c18;
+}
+
+.mini-summary strong {
+  color: #f5ce75 !important;
+}
+
+.mini-summary span {
+  color: #e1fff1 !important;
+}
+
+/* Consistent farm records and fields */
+.farm-record,
+.form-panel,
+.season-record,
+.card.empty {
+  background: linear-gradient(
+    145deg,#0a413a,#07252d
+  );
+  color: #effff7;
+  border: 1px solid #348b76;
+}
+
+.farm-record-header p,
+.farm-record .muted {
+  color: #c3e5d6;
+}
+
+.farm-tags span {
+  background: #125344;
+  color: #c9ffe2;
+}
+
+.farm-record-symbol {
+  background: #125c48;
+}
+
+/* High-contrast labels and controls */
+.form-panel h3,
+.form-panel label {
+  color: #fff;
+}
+
+.form-panel input,
+.form-panel select {
+  background: #082c32;
+  color: #effff7;
+  border: 1px solid #408c7a;
+}
+
+.form-panel input::placeholder {
+  color: #a4c9be;
+}
+
+/* Other feature cards */
+:root[data-theme="dark"] .main .card,
+:root[data-theme="mixed"] .main .card {
+  color: #effff7;
+  border-color: #348b76;
+}
+
+/* Mobile screens */
+@media(max-width:900px) {
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .topbar > div:first-child {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .cinema-headernav {
+    width: 100%;
+  }
+
+  .main {
+    padding: 16px 12px 55px;
+  }
+
+  .mini-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Respect light mode */
+:root[data-theme="light"] .farm-intro h2 {
+  color: white !important;
+}
+
+:root[data-theme="light"] .farm-intro p {
+  color: #dbf4e8 !important;
+}
+
